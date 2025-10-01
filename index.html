@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Resume Service - Mock</title>
+
+  <!-- Google font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg: #f6f6f7;
+      --card: #ffffff;
+      --pink: #ffd8df;
+      --pink-2: #ff8aa3;
+      --accent: #ff415f;
+      --muted: #8b8b96;
+      --radius: 14px;
+      --container: 1100px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background:var(--bg);
+      color:#111;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+
+    .wrap{
+      max-width:var(--container);
+      margin:28px auto;
+      padding:0 20px 140px; /* bottom for fixed tray */
+    }
+
+    /* header */
+    header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:18px 0;
+      background:transparent;
+    }
+    .logo{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+    .logo .mark{
+      width:46px;
+      height:46px;
+      border-radius:50%;
+      background:linear-gradient(135deg,var(--pink-2),#ffd0e0);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:white;
+      font-weight:700;
+      font-size:18px;
+    }
+    nav{
+      display:flex;
+      gap:18px;
+      align-items:center;
+      color: #666;
+      font-weight:500;
+      font-size:14px;
+    }
+    .get-quote{
+      background:linear-gradient(90deg,var(--pink-2),var(--accent));
+      color:#fff;
+      padding:9px 16px;
+      border-radius:999px;
+      box-shadow:0 6px 18px rgba(255,65,95,.15);
+      font-weight:600;
+      margin-left:12px;
+      border:none;
+    }
+
+    /* hero */
+    .hero{
+      margin-top:18px;
+      background: linear-gradient(180deg, #ffdfe6 0%, #ffdfe6 60%);
+      border-radius:14px;
+      padding:36px;
+      display:flex;
+      gap:20px;
+      align-items:center;
+      overflow:visible;
+      position:relative;
+    }
+
+    /* large circular decorative */
+    .hero::after{
+      content:"";
+      position:absolute;
+      right:8%;
+      top: -10%;
+      width:360px;
+      height:360px;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.35), rgba(255,255,255,0));
+      border-radius:50%;
+      pointer-events:none;
+      filter: blur(6px);
+    }
+
+    .hero-left{
+      flex:1;
+      padding:16px 16px 16px 12px;
+      min-width:260px;
+    }
+    .kicker{
+      display:inline-block;
+      font-size:13px;
+      color:var(--muted);
+      background:rgba(255,255,255,0.8);
+      padding:6px 10px;
+      border-radius:12px;
+      margin-bottom:18px;
+    }
+    .hero h1{
+      margin:0 0 8px 0;
+      font-size:44px;
+      line-height:1.02;
+      letter-spacing:-0.6px;
+      font-weight:800;
+      color:#0f1724;
+    }
+    .highlight{
+      color:var(--accent);
+      text-decoration:underline;
+      text-decoration-thickness:3px;
+      text-underline-offset:6px;
+    }
+    .hero p.lead{
+      color:#6b6b75;
+      margin:18px 0 22px 0;
+      max-width:520px;
+      font-size:15px;
+    }
+
+    .hero .cta-row{
+      display:flex;
+      gap:12px;
+      align-items:center;
+    }
+    .btn{
+      padding:12px 18px;
+      border-radius:10px;
+      font-weight:700;
+      border:none;
+      cursor:pointer;
+    }
+    .btn-primary{
+      background:linear-gradient(90deg,#ff6f96,#ff3f63);
+      color:white;
+      box-shadow:0 8px 26px rgba(255,63,99,.18);
+    }
+    .btn-outline{
+      background:transparent;
+      border:2px solid rgba(0,0,0,0.06);
+      color:#333;
+      font-weight:600;
+    }
+
+    /* hero right image */
+    .hero-right{
+      width:420px;
+      max-width:42%;
+      min-width:240px;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      position:relative;
+    }
+    .person{
+      width:320px;
+      height:auto;
+      border-radius:12px;
+      box-shadow: 0 12px 28px rgba(16,24,40,0.08);
+      transform: translateY(0);
+      z-index:3;
+      background: url('https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=') center/cover no-repeat;
+      min-height:380px;
+      border-radius:12px;
+    }
+
+    /* badges on image */
+    .badge{
+      position:absolute;
+      background:var(--card);
+      padding:8px 12px;
+      border-radius:12px;
+      box-shadow:0 8px 22px rgba(16,24,40,0.08);
+      display:flex;
+      gap:10px;
+      align-items:center;
+      font-weight:700;
+      z-index:5;
+    }
+    .badge .rating{
+      background: #e9fff6;
+      padding:6px 8px;
+      border-radius:8px;
+      font-weight:800;
+      color:#0e8a6e;
+    }
+    .badge .stars{font-weight:600;color:#f4b400;font-size:13px}
+
+    .badge.c1{right:36px; top:80px;}
+    .badge.c2{right:18px; bottom:40px; padding:14px; gap:12px; align-items:center;}
+    .badge.c2 .grad{
+      width:46px;
+      height:46px;
+      background:linear-gradient(135deg,var(--pink-2),var(--accent));
+      border-radius:10px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:white;
+      font-weight:800;
+    }
+
+    /* what you get section (cards) */
+    .what{
+      margin-top:34px;
+      background:transparent;
+      padding:22px;
+      border-radius:12px;
+    }
+    .what .title{
+      text-align:center;
+      font-size:13px;
+      color:var(--muted);
+      display:block;
+      margin-bottom:12px;
+    }
+    .cards{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:18px;
+      margin-top:10px;
+    }
+    .card{
+      background:var(--card);
+      border-radius:12px;
+      padding:18px;
+      box-shadow:0 6px 18px rgba(16,24,40,0.04);
+      min-height:160px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+    .card h4{margin:0;font-size:15px}
+    .card p{margin:0;color:#6b6b75;font-size:13px;flex:1}
+
+    /* bottom rounded signup tray */
+    .fixed-tray{
+      position:fixed;
+      left:50%;
+      transform:translateX(-50%);
+      bottom:18px;
+      width:calc(100% - 36px);
+      max-width:720px;
+      background:linear-gradient(180deg,#fff,#fbfdff);
+      border-radius:30px;
+      padding:18px;
+      box-shadow:0 18px 40px rgba(2,6,23,0.15);
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      z-index:999;
+    }
+    .fixed-tray .signup{
+      background:linear-gradient(90deg,#21a3ff,#0ea5ff);
+      color:white;
+      padding:14px;
+      border-radius:12px;
+      text-align:center;
+      font-weight:700;
+      border:none;
+    }
+    .fixed-tray .login{
+      background:transparent;
+      border:2px solid rgba(0,0,0,0.06);
+      padding:12px;
+      border-radius:12px;
+      font-weight:700;
+      text-align:center;
+    }
+
+    /* responsiveness */
+    @media (max-width:980px){
+      .hero{
+        flex-direction:column-reverse;
+        gap:18px;
+      }
+      .hero-right{width:100%; display:flex; justify-content:center;}
+      .person{width:72%; min-height:300px}
+      .badge.c1{right:8%; top:8%}
+      .badge.c2{right:6%; bottom:10%}
+      .cards{grid-template-columns:repeat(2,1fr)}
+      .wrap{padding-bottom:200px}
+    }
+    @media (max-width:520px){
+      header nav{display:none}
+      .hero h1{font-size:32px}
+      .person{min-height:260px;width:86%}
+      .cards{grid-template-columns:1fr}
+      .hero-left{padding:0}
+      .wrap{margin:14px auto}
+    }
+
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="logo">
+        <div class="mark">C</div>
+        <div>
+          <div style="font-weight:700">COMPANY</div>
+          <div style="font-size:12px;color:var(--muted)">business tagline</div>
+        </div>
+      </div>
+
+      <nav>
+        <div>Home</div>
+        <div>About Us</div>
+        <div>Our Services</div>
+        <div>Pricing</div>
+        <div>FAQ</div>
+        <button class="get-quote">Get A Quote</button>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" aria-label="Hero">
+        <div class="hero-left">
+          <span class="kicker">Your Resume</span>
+          <h1>
+            <span style="display:block">Your Resume</span>
+            <span class="highlight">Deserves A Yes</span>
+            <span style="display:block">Let's Make It Happen</span>
+          </h1>
+
+          <p class="lead">
+            If your resume isn't getting responses, it's time for an upgrade.
+            Get an ATS-optimized resume crafted by HR experts to help you land more interviews.
+            Our resumes are designed to get your foot in the door and place your name at the top of the shortlist.
+          </p>
+
+          <div class="cta-row">
+            <button class="btn btn-primary">Resume Packages</button>
+            <button class="btn btn-outline">Contact Us</button>
+          </div>
+        </div>
+
+        <div class="hero-right" aria-hidden="false">
+          <div class="person" role="img" aria-label="student image"></div>
+
+          <!-- rating badge -->
+          <div class="badge c1" title="Instructor rating">
+            <div class="rating">4.9</div>
+            <div>
+              <div style="font-size:13px;font-weight:700">Instructor Rating</div>
+              <div class="stars">★★★★★</div>
+            </div>
+          </div>
+
+          <!-- small stat badge -->
+          <div class="badge c2" title="resumes created">
+            <div class="grad">🎓</div>
+            <div style="font-weight:700">
+              <div style="font-size:14px">260+</div>
+              <div style="font-size:12px;color:var(--muted)">Online Resume Created</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="what">
+        <span class="title">What You Get</span>
+        <h3 style="text-align:center;margin:6px 0 18px 0;font-weight:700;color:#222">You're Not Just Another Applicant And Your Resume Shouldn't Look Like One</h3>
+
+        <div class="cards">
+          <div class="card">
+            <div style="display:flex;gap:10px;align-items:center">
+              <div style="width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,#fff5f7,#ffeef2);display:flex;align-items:center;justify-content:center">📄</div>
+              <div>
+                <h4>A Resume That Passes ATS Filters</h4>
+              </div>
+            </div>
+            <p>Get a professionally written, keyword-optimized resume that lands in recruiter inboxes—not rejection piles.</p>
+          </div>
+
+          <div class="card">
+            <div style="display:flex;gap:10px;align-items:center">
+              <div style="width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,#f0f9ff,#e6f6ff);display:flex;align-items:center;justify-content:center">✉</div>
+              <div>
+                <h4>A Cover Letter That Gets Read</h4>
+              </div>
+            </div>
+            <p>Stand out with a cover letter that speaks directly to the role and reflects your strengths.</p>
+          </div>
+
+          <div class="card">
+            <div style="display:flex;gap:10px;align-items:center">
+              <div style="width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,#fff9ec,#fff2d6);display:flex;align-items:center;justify-content:center">🔗</div>
+              <div>
+                <h4>A LinkedIn Profile That Works For You</h4>
+              </div>
+            </div>
+            <p>Attract the right eyes, start conversations, and show up in recruiter searches.</p>
+          </div>
+
+          <div class="card">
+            <div style="display:flex;gap:10px;align-items:center">
+              <div style="width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,#f7f0ff,#f0e8ff);display:flex;align-items:center;justify-content:center">💬</div>
+              <div>
+                <h4>Interview Confidence</h4>
+              </div>
+            </div>
+            <p>Interview preparation with real HR professionals so you speak clearly, confidently, and convincingly.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- fixed bottom tray -->
+  <div class="fixed-tray" role="dialog" aria-label="Signup actions">
+    <button class="signup">Sign up</button>
+    <button class="login">Log in</button>
+  </div>
+
+</body>
+</html>
